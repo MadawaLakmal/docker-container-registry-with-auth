@@ -71,6 +71,8 @@ openssl x509 -req \
     
     
 # If we are using self-sign certificates make sure to use your own CA, because there is a bug in a OpenSSL 1.1.1 version with GO. Also add the rootCA into your localhost(/usr/local/share/ca-certificates/rootCA.crt) and /etc/docker/docker.registry:5000/ directory as ca.crt.  
+# Also follow the same steps to generate auth.madawa.com cert and key
+
 ```
 
 ### sample-config.yml,
