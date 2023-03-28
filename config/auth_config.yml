@@ -1,0 +1,30 @@
+server:  # Server settings.
+  # Address to listen on.
+  addr: ":5001"
+  # TLS certificate and key.
+  certificate: "/ssl/auth-server.crt"
+  key: "/ssl/auth-server.key"
+
+token:  # Settings for the tokens.
+  issuer: "auth_service"  # Must match issuer in the Registry config.
+  expiration: 900
+
+
+# Static user map.
+users:
+  # Password is specified as a BCrypt hash. Use htpasswd -B to generate.
+  "admin":
+    password: "$2y$05$egkZSRgEpr0MEHfuhcI7KehPUveatklaBOVuaDnEKMaZKSBEM66Qi" #admin@123
+  "madawa": # my user
+    password: "$2y$05$bD1sxGVeEt5FuxXJn.NPp.E2.xWEqm.6qM7ASCQUSqAQelhXhxTHe" #madawa@123
+
+acl:
+  # Admin has full access to everything.
+  - match: {account: "admin"}
+    actions: ["*"]
+  # Users have full right on their repository
+  - match: {account: "/.+/", name: "${account}/*"}
+    actions: ["*"]
+  - match: {account: "madawa"}
+    actions: ["pull"]
+  # Access is denied by default.
